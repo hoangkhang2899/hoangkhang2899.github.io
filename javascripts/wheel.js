@@ -1,31 +1,31 @@
 var students = [
-  { name: "Set 10 Bao Lì Xì", status: true },
-  { name: "Bộ Chén Đũa 6 Cái", status: true },
-  { name: "Xe Chòi Chân 3 Bánh", status: true },
-  { name: "Xe Chòi Chân Có Nhạc", status: true },
-  { name: "Xe Trượt Scooter Cho Bé", status: true },
-  { name: "Túi Xách Enfa Cho Mẹ", status: true },
-  { name: "Bộ Lều Huggies Cho Bé", status: true },
-  { name: "Đai Xe Máy Ngộ Nghĩnh", status: true },
-  { name: "Đĩa Sứ Cao Cấp 3 Chuẩn", status: true },
-  { name: "Bộ 6 Ly Trà Thuỷ Tinh", status: true },
-  { name: "Khay Mứt Tết Hoa Mai", status: true },
-  { name: "Lốc 6 Lon Yến Tết Khánh Hoà", status: true },
-  { name: "Set Bình + 6 Ly Thuỷ Tinh", status: true },
-  { name: "Set Chăn + Nón Noel Cho Bé", status: true },
-  { name: "Set Chăn Gối Grow", status: true },
-  { name: "Balo Chóng Gù Milo", status: true },
-  { name: "Balo Malto Cỡ Lớn Cho Bé", status: true },
-  { name: "Ly Giữ Nhiệt 7 Giờ", status: true },
-  { name: "Nồi Nấu Đa Năng", status: true },
-  { name: "Chai Nước Trái Cây Hàn Quốc", status: true },
-  { name: "Bộ Đồ Chơi Thả Bóng Bobby", status: true },
-  { name: "Gối Đi Xe Máy", status: true },
-  { name: "Gấu Bông Cho Bé", status: true },
-  { name: "Ly Nhựa 2 Lớp Lock & Lock", status: true },
-  { name: "Voucher Mua Đồ Chơi 39k", status: true },
-  { name: "Voucher 5% Tối Đa 50k Mua Vitamin", status: true },
+  { name: "Set 10 Bao Lì Xì", status: true, rate: 90 },
+  { name: "Bộ Chén Đũa 6 Cái", status: true, rate: 5 },
+  { name: "Xe Chòi Chân 3 Bánh", status: true, rate: 2 },
+  { name: "Xe Chòi Chân Có Nhạc", status: true, rate: 1 },
+  { name: "Xe Trượt Scooter Cho Bé", status: true, rate: 2 },
+  { name: "Túi Xách Enfa Cho Mẹ", status: true, rate: 2 },
+  { name: "Bộ Lều Huggies Cho Bé", status: true, rate: 4 },
+  { name: "Đai Xe Máy Ngộ Nghĩnh", status: true, rate: 3 },
+  { name: "Đĩa Sứ Cao Cấp 3 Chuẩn", status: true, rate: 10 },
+  { name: "Bộ 6 Ly Trà Thuỷ Tinh", status: true, rate: 10 },
+  { name: "Khay Mứt Tết Hoa Mai", status: true, rate: 1 },
+  { name: "Lốc 6 Lon Yến Tết Khánh Hoà", status: true, rate: 10 },
+  { name: "Set Bình + 6 Ly Thuỷ Tinh", status: true, rate: 1 },
+  { name: "Set Chăn + Nón Noel Cho Bé", status: true, rate: 2 },
+  { name: "Set Chăn Gối Grow", status: true, rate: 1 },
+  { name: "Balo Chóng Gù Milo", status: true, rate: 2 },
+  { name: "Balo Malto Cỡ Lớn Cho Bé", status: true, rate: 2 },
+  { name: "Ly Giữ Nhiệt 7 Giờ", status: true, rate: 2 },
+  { name: "Nồi Nấu Đa Năng", status: true, rate: 3 },
+  { name: "Chai Nước Trái Cây Hàn Quốc", status: true, rate: 20 },
+  { name: "Gối Đi Xe Máy", status: true, rate: 3 },
+  { name: "Gấu Bông Cho Bé", status: true, rate: 5 },
+  { name: "Ly Nhựa 2 Lớp Lock & Lock", status: true, rate: 2 },
+  { name: "Voucher Mua Đồ Chơi 39k", status: true, rate: 10 },
+  { name: "Voucher 5% Tối Đa 50k Mua Vitamin", status: true, rate: 10 },
 ];
+var spec = 0;
 
 const closeModal = () => {
   $("#modal").attr("show", "off");
@@ -40,27 +40,11 @@ var shuffle = function (o) {
   return o;
 };
 
-var hashCode = function (string) {
-  // See http://www.cse.yorku.ca/~oz/hash.html
-  var hash = 5381;
-  for (i = 0; i < string.length; i++) {
-    var char = string.charCodeAt(i);
-    hash = (hash << 5) + hash + char;
-    hash = hash & hash; // Convert to 32bit integer
-  }
-  return hash;
-};
-
-var mod = function (a, b) {
-  return ((a % b) + b) % b;
-};
-
 $(function () {
   var studentContainer = $("#students ul");
 
   students.forEach(function (student) {
     var name = student.name;
-    console.log("Test");
     const item = localStorage.getItem(name);
     studentContainer.append(
       $(document.createElement("li"))
@@ -79,13 +63,12 @@ $(function () {
               var i = segments.indexOf(cbox.value);
 
               if (cbox.checked && i == -1) {
-                segments.push(cbox.value);
+                segments.push(student);
                 localStorage.setItem(name, 1);
               } else if (!cbox.checked && i != -1) {
                 localStorage.setItem(name, 0);
                 segments.splice(i, 1);
               }
-
               segments.sort();
               wheel.update();
             })
@@ -106,7 +89,7 @@ $(function () {
 
   var segments = [];
   $.each($("#students input:checked"), function (key, cbox) {
-    segments.push(cbox.value);
+    segments.push(students.find((v) => v.name === cbox.value));
   });
 
   wheel.segments = segments;
@@ -126,22 +109,43 @@ var wheel = {
   centerX: 300,
   centerY: 300,
   colorCache: [],
-  downTime: 10000,
+  downTime: 4000,
   frames: 0,
   maxSpeed: Math.PI / 16,
   segments: [],
   size: 290,
   spinStart: 0,
-  timerDelay: 1,
+  timerDelay: 0,
   timerHandle: 0,
-  upTime: 1000,
+  upTime: 3000,
 
   spin: function () {
     // Start the wheel only if it's not already spinning
     if (wheel.timerHandle == 0) {
+      let totalRate = 0;
+      let sum = 0;
+
       wheel.spinStart = new Date().getTime();
-      wheel.maxSpeed = Math.PI / (16 + Math.random()); // Randomly vary how hard the spin is
+      wheel.maxSpeed = Math.PI / 16; // Randomly vary how hard the spin is
+      // wheel.maxSpeed = Math.PI / (16 + Math.random() * 10); // Randomly vary how hard the spin is
       wheel.frames = 0;
+
+      wheel.segments.forEach((v) => {
+        totalRate += v.rate;
+      });
+      const rand = Math.random() * totalRate;
+      console.log(rand);
+      wheel.segments.some((v, i) => {
+        sum += v.rate;
+        if (rand < sum) {
+          spec =
+            (Math.PI * 2 * (wheel.segments.length - i - 1 + 0.5)) /
+            wheel.segments.length;
+          console.log(i);
+          return true;
+        }
+      });
+
       wheel.timerHandle = setInterval(wheel.onTimerTick, wheel.timerDelay);
     }
   },
@@ -159,34 +163,45 @@ var wheel = {
       wheel.angleDelta = wheel.maxSpeed * Math.sin((progress * Math.PI) / 2);
     } else {
       progress = duration / wheel.downTime;
-      wheel.angleDelta =
-        wheel.maxSpeed * Math.sin((progress * Math.PI) / 2 + Math.PI / 2);
-      if (progress >= 1) {
+      wheel.angleDelta = wheel.maxSpeed * Math.sin((progress * Math.PI) / 6);
+      console.log(
+        Math.round(wheel.angleCurrent * 10) / 10,
+        Math.round(spec * 10) / 10
+      );
+      if (
+        progress >= 1 &&
+        Math.round(wheel.angleCurrent * 10) / 10 === Math.round(spec * 10) / 10
+      ) {
         finished = true;
       }
     }
-
-    wheel.angleCurrent += wheel.angleDelta;
+    if (!finished) wheel.angleCurrent += wheel.angleDelta;
     while (wheel.angleCurrent >= Math.PI * 2)
       // Keep the angle in a reasonable range
       wheel.angleCurrent -= Math.PI * 2;
-
     if (finished) {
       clearInterval(wheel.timerHandle);
       wheel.timerHandle = 0;
       wheel.angleDelta = 0;
-
+      console.log(
+        wheel.segments.length -
+          Math.floor(
+            (wheel.angleCurrent / (Math.PI * 2)) * wheel.segments.length
+          ) -
+          1
+      );
       var i =
         wheel.segments.length -
         Math.floor(
           (wheel.angleCurrent / (Math.PI * 2)) * wheel.segments.length
         ) -
         1;
+
       $("#image").attr({
-        src: `images/${wheel.segments[i]}.png`,
-        alt: wheel.segments[i],
+        src: `images/${wheel.segments[i].name}.png`,
+        alt: wheel.segments[i].name,
       });
-      $("#congra").text(() => wheel.segments[i].toUpperCase());
+      $("#congra").text(() => wheel.segments[i].name.toUpperCase());
       setTimeout(() => {
         $("#modal").attr("show", "on");
       }, 1000);
@@ -220,16 +235,6 @@ var wheel = {
     //var r = 0;
     wheel.angleCurrent = ((r + 0.5) / wheel.segments.length) * Math.PI * 2;
 
-    var segments = wheel.segments;
-    var len = segments.length;
-    var colorLen = spectrum.length;
-
-    var colorCache = [];
-    for (var i = 0; i < len; i++) {
-      var color = spectrum[mod(hashCode(segments[i]), colorLen)];
-      colorCache.push(color);
-    }
-    wheel.colorCache = colorCache;
     wheel.draw();
   },
 
@@ -270,7 +275,7 @@ var wheel = {
     var centerX = wheel.centerX;
     var centerY = wheel.centerY;
     var size = wheel.size;
-    var value = wheel.segments[key];
+    var value = wheel.segments[key].name;
 
     ctx.save();
     ctx.beginPath();
