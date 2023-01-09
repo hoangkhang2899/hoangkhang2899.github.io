@@ -2,16 +2,16 @@ var students = [
   { name: "Set 10 Bao Lì Xì", status: true, rate: 90 },
   { name: "Bộ Chén Đũa 6 Cái", status: true, rate: 5 },
   { name: "Xe Chòi Chân 3 Bánh", status: true, rate: 2 },
-  { name: "Xe Chòi Chân Có Nhạc", status: true, rate: 1 },
-  { name: "Xe Trượt Scooter Cho Bé", status: true, rate: 2 },
+  { name: "Xe Chòi Chân Có Nhạc", status: true, rate: 0 },
+  { name: "Xe Trượt Scooter Cho Bé", status: true, rate: 0 },
   { name: "Túi Xách Enfa Cho Mẹ", status: true, rate: 2 },
   { name: "Bộ Lều Huggies Cho Bé", status: true, rate: 4 },
   { name: "Đai Xe Máy Ngộ Nghĩnh", status: true, rate: 3 },
   { name: "Đĩa Sứ Cao Cấp 3 Chuẩn", status: true, rate: 10 },
   { name: "Bộ 6 Ly Trà Thuỷ Tinh", status: true, rate: 10 },
-  { name: "Khay Mứt Tết Hoa Mai", status: true, rate: 1 },
+  { name: "Khay Mứt Tết Hoa Mai", status: true, rate: 0 },
   { name: "Lốc 6 Lon Yến Tết Khánh Hoà", status: true, rate: 10 },
-  { name: "Set Bình + 6 Ly Thuỷ Tinh", status: true, rate: 1 },
+  { name: "Set Bình + 6 Ly Thuỷ Tinh", status: true, rate: 0 },
   { name: "Set Chăn + Nón Noel Cho Bé", status: true, rate: 2 },
   { name: "Set Chăn Gối Grow", status: true, rate: 1 },
   { name: "Balo Chóng Gù Milo", status: true, rate: 2 },
@@ -137,7 +137,7 @@ var wheel = {
       console.log(rand);
       wheel.segments.some((v, i) => {
         sum += v.rate;
-        if (rand < sum) {
+        if (rand <= sum) {
           spec =
             (Math.PI * 2 * (wheel.segments.length - i - 1 + 0.5)) /
             wheel.segments.length;
